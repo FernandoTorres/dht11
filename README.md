@@ -5,7 +5,7 @@ This is a small tool that takes humidity and temperature measurements
 using a DHT11 sensor on a Raspberry Pi.
 
 The code has been adapted from
-[this blog post.](http://www.rpiblog.com/2012/11/interfacing-temperature-and-humidity.html]
+[this blog post.](http://www.rpiblog.com/2012/11/interfacing-temperature-and-humidity.html)
 
 By default it outputs humidity (in %) and temperature (in degrees
 Celsius). Here's an example:

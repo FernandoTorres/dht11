@@ -15,10 +15,12 @@ vim:et:sta:sts=4:sw=4:ts=8:tw=79:
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <unistd.h>
 #include <time.h>
 #define MAX_TIME 85
 #define MAX_TRIES 100
 #define DHT11PIN 7
+
 int dht11_val[5]={0,0,0,0,0};
 
 int dht11_read_val(int *h, int *t) {
@@ -71,12 +73,27 @@ int dht11_read_val(int *h, int *t) {
     }
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
     int h;
     int t;
 
+    int print_time = 0;
     time_t current_time = time(NULL);
     struct tm tm = *localtime(&current_time);
+
+    int opt;
+    while ((opt = getopt(argc, argv, "d")) != -1) {
+        switch (opt) {
+            case 'd': print_time = 1; break;
+            default:
+                printf("Usage: %s [-d]\n\n", argv[0]);
+                printf("OPTIONS:\n");
+                printf("    -d,    Print date and time before values\n");
+                printf("    -h,    This help message\n");
+                exit(1);
+        }
+
+    }
 
     // error out if wiringPi can't be used
     if (wiringPiSetup()==-1) {
@@ -98,8 +115,10 @@ int main(void) {
     {
         retval = dht11_read_val(&h, &t);
         if (retval == 0) {
-            printf("%4d-%02d-%02d,", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday);
-            printf("%02d:%02d,", tm.tm_hour, tm.tm_min);
+            if (print_time == 1) {
+                printf("%4d-%02d-%02d,", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday);
+                printf("%02d:%02d,", tm.tm_hour, tm.tm_min);
+            }
             printf("%d,%d\n", h , t);
         } else {
             delay(3000);

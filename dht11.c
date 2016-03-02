@@ -101,7 +101,9 @@ int main(void) {
             printf("%4d-%02d-%02d,", tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday);
             printf("%02d:%02d,", tm.tm_hour, tm.tm_min);
             printf("%d,%d\n", h , t);
-        }
+        } else {
+            delay(3000);
+    }
         tries += 1;
     }
     if (tries < MAX_TRIES)

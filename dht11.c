@@ -1,4 +1,6 @@
 /*
+vim:et:sta:sts=4:sw=4:ts=8:tw=79:
+ *
  *
  * This reads humidity and temperature data from a DHT11 sensor, connected to a
  * Raspberry Pi GPIO pin 7.
@@ -7,9 +9,6 @@
  * http://www.rpiblog.com/2012/11/interfacing-temperature-and-humidity.html
  *
  *
- * 
- * Define vim formatting:
-vim:et:sta:sts=4:sw=4:ts=8:tw=79:
 */
 
 #include <wiringPi.h>
